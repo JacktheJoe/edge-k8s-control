@@ -1,0 +1,25 @@
+# Monitoring server deployment
+- name: Monitoring server deployment
+  hosts: masters
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Copy Monitoring server deployment
+      become: true
+      become_user: jack
+      ansible.builtin.copy:
+        force: yes
+        src: ./mono_monitor_deployment.yaml
+        dest: /home/jack/mono_monitor_deployment.yaml
+        mode: 0644
+    
+    - name: apply deployment
+      become: yes
+      ansible.builtin.shell:
+        cmd: sudo kubectl apply -f mono_monitor_deployment.yaml
+      register: deployment_result  # Register the output of the shell command
+
+    - name: Show output of the deployment command
+      debug:
+        msg: "{{ deployment_result.stdout }}"  # Display the stdout from the shell command

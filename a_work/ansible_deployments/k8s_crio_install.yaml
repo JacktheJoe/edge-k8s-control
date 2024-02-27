@@ -1,0 +1,227 @@
+---
+
+# update all ubuntu nodes
+- name: get update for all ubnutu hosts, then turn off swap for all
+  hosts: ubuntu
+  become: yes
+  gather_facts: yes
+
+  tasks:
+
+    - name: update all ubuntu hosts
+      apt:
+        update_cache: yes
+
+    - name: temporarily disable swap filw
+      shell: |
+        sudo swapoff -a
+
+    - name: Disable SWAP in fstab
+      replace:
+        path: /etc/fstab
+        regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+        replace: '# \1'
+
+    - name: test if swap is off
+      shell: sudo swapon --show
+
+# enable ipv4_forwarding on kube nodes
+- name: enable ipv4 forward
+  hosts: kubernetes
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+    - name: enable ipv4 forward
+      shell: |
+        cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+        overlay
+        br_netfilter
+        EOF
+        sudo modprobe overlay
+        sudo modprobe br_netfilter  
+        cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+        net.bridge.bridge-nf-call-iptables  = 1
+        net.bridge.bridge-nf-call-ip6tables = 1
+        net.ipv4.ip_forward                 = 1
+        EOF
+        sudo sysctl --system
+        lsmod | grep br_netfilter && lsmod | grep overlay
+        sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+
+# update RTC since some nodes might be off
+- name: update RTC
+  hosts: kubernetes
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: update RTC
+      shell: |
+        sudo systemctl unmask systemd-timesyncd
+        sudo apt install systemd-timesyncd
+        sudo systemctl enable systemd-timesyncd.service
+        sudo systemctl start systemd-timesyncd.service
+
+# install crio on kube nodes
+- name: install crio
+  hosts: kubernetes
+  become: yes
+  gather_facts: no
+
+  vars:
+    OS: xUbuntu_22.04
+    prev_version: 1.28
+    VERSION: 1.28.2
+
+  tasks:
+
+    # this might get changed frequently, so be careful
+    - name: add the CRIO GPG key
+      shell: |
+        curl -fsSL https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ OS }}/Release.key | sudo gpg --dearmor -o /usr/share/keyrings/libcontainers-archive-keyring.gpg
+        curl -fsSL https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ prev_version }}:/{{ VERSION }}/{{ OS }}/Release.key | sudo gpg --dearmor -o /usr/share/keyrings/libcontainers-crio-archive-keyring.gpg
+    
+    - name: add the CRIO repository
+      shell: |
+        echo "deb [signed-by=/usr/share/keyrings/libcontainers-archive-keyring.gpg] https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ OS }}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+        echo "deb [signed-by=/usr/share/keyrings/libcontainers-crio-archive-keyring.gpg] https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ prev_version }}:/{{ VERSION }}/{{ OS }}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:{{ VERSION }}.list
+
+    - name: Update and install packages
+      shell: |
+        apt install -y cri-o cri-o-runc
+
+    - name: Reload systemd daemon
+      ansible.builtin.systemd:
+        daemon_reload: yes
+
+    - name: Enable and start cri-o service
+      ansible.builtin.systemd:
+        name: crio
+        enabled: yes
+        state: started
+
+# install k8s modules 
+- name: Install Kubernetes modules
+  hosts: kubernetes
+  become: yes
+  gather_facts: no
+
+  vars:
+    kubeadm_version: "1.28.2-00"
+    kubelet_version: "1.28.2-00"
+    kubectl_version: "1.28.2-00"
+
+  tasks:
+
+    - name: Install kubeadm
+      ansible.builtin.apt:
+        name: "kubeadm={{ kubeadm_version }}"
+        state: present
+        update_cache: yes
+
+    - name: Install kubelet
+      ansible.builtin.apt:
+        name: "kubelet={{ kubelet_version }}"
+        state: present
+
+    - name: Install kubectl
+      ansible.builtin.apt:
+        name: "kubectl={{ kubectl_version }}"
+        state: present
+
+    - name: Hold kubeadm at the specified version
+      ansible.builtin.apt:
+        name: kubeadm
+        state: present
+        version: "{{ kubeadm_version }}"
+        update_cache: no
+
+    - name: Hold kubelet at the specified version
+      ansible.builtin.apt:
+        name: kubelet
+        state: present
+        version: "{{ kubelet_version }}"
+        update_cache: no
+
+    - name: Hold kubectl at the specified version
+      ansible.builtin.apt:
+        name: kubectl
+        state: present
+        version: "{{ kubectl_version }}"
+        update_cache: no
+
+# Initialize control plane for each cluster master
+- name: Control plane initialization
+  hosts: cluster4_master:cluster5_master
+  become: yes
+  gather_facts: no
+
+  vars:
+    home_path: /home/jack
+    username: jack
+
+  tasks:
+    - name: Add GPG key for Kubernetes repository
+      ansible.builtin.apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: Add the Kubernetes apt repository
+      ansible.builtin.apt_repository:
+        repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+        state: present
+
+    - name: Initialize the Kubernetes cluster
+      shell: kubeadm init --pod-network-cidr=192.168.0.0/16 --cri-socket unix:///var/run/crio/crio.sock
+      register: init_result
+      failed_when: init_result.rc != 0
+
+    - name: Deploy Calico network
+      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+
+    - name: Generate join command
+      shell: kubeadm token create --print-join-command
+      register: join_command
+
+    - name: Copy join command to local file for cluster4_master
+      local_action:
+        module: copy
+        content: "{{ join_command.stdout }}"
+        dest: "/tmp/kubernetes_join_command_cluster4"
+      when: inventory_hostname in groups['cluster4_master']
+
+    - name: Copy join command to local file for cluster5_master
+      local_action:
+        module: copy
+        content: "{{ join_command.stdout }}"
+        dest: "/tmp/kubernetes_join_command_cluster5"
+      when: inventory_hostname in groups['cluster5_master']
+
+# Join worker nodes to their respective clusters
+- name: Join worker nodes
+  hosts: cluster4_worker:cluster5_worker
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Copy join command to workers of cluster4
+      copy:
+        src: "/tmp/kubernetes_join_command_cluster4"
+        dest: "/tmp/kubernetes_join_command"
+        mode: '0777'
+      when: inventory_hostname in groups['cluster4_worker']
+
+    - name: Copy join command to workers of cluster5
+      copy:
+        src: "/tmp/kubernetes_join_command_cluster5"
+        dest: "/tmp/kubernetes_join_command"
+        mode: '0777'
+      when: inventory_hostname in groups['cluster5_worker']
+
+    - name: Execute the join command on worker nodes
+      shell: sh /tmp/kubernetes_join_command
+      when: inventory_hostname in groups['cluster4_worker'] or inventory_hostname in groups['cluster5_worker']

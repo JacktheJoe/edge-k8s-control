@@ -1,0 +1,28 @@
+---
+
+  - name: 
+    hosts: masters
+    become: yes
+    gather_facts: no
+    tasks:
+
+      - name: fetch node names
+        shell: | 
+          sudo kubectl get nodes | grep "master*" | awk '{print $1}'
+        register: nodename
+
+      - name: check output
+        ansible.builtin.debug:
+          msg: "{{ nodename.stdout }}"
+
+      - name: check tainted status
+        shell: | 
+          sudo kubectl describe nodes {{ nodename.stdout }} | grep -E '(Roles|Taints)'
+
+      - name: label master node
+        shell: | 
+          sudo kubectl label nodes {{ nodename.stdout }} dedicated=master
+
+      - name: untaint master node
+        shell: |
+          sudo kubectl taint nodes {{ nodename.stdout }} node-role.kubernetes.io/control-plane:NoSchedule-

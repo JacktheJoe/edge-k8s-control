@@ -1,0 +1,19 @@
+---
+
+# Monitoring server cleanup
+- name: Monitoring server cleanup
+  hosts: masters
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: delete Monitoring server deployment
+      become: yes
+      ansible.builtin.shell:
+        cmd: sudo kubectl delete -f mono_monitor_deployment.yaml
+
+    - name: delete file
+      become: yes
+      ansible.builtin.shell:
+        cmd: sudo rm mono_monitor_deployment.yaml
+

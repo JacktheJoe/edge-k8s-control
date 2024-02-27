@@ -1,0 +1,37 @@
+---
+
+# Metrics server deployment
+- name: Metrics server deployment
+  hosts: masters
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Copy metrics server deployment
+      become: yes
+      ansible.builtin.copy:
+        src: ./kube_metrics_deployment.yaml
+        dest: ./kube_metrics_deployment.yaml
+        mode: 0777
+
+    - name: Run metrics server deployment
+      become: yes
+      ansible.builtin.shell:
+        cmd: kubectl apply -f kube_metrics_deployment.yaml
+
+# Test metric server by fetching master node utilization
+- name: test metric server deployment
+  hosts: masters
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: test metric server
+      become: yes
+      shell: |
+        kubectl top nodes | grep master
+      register: kubectl
+
+    - ansible.builtin.debug:
+        msg: "{{ kubectl.stdout_lines }}"
+

@@ -1,0 +1,15 @@
+apiVerison: v1
+kind: Service
+metadata:
+  name: k8s-monitoring-expose-service
+  labels:
+    app: k8s-monitoring-expose
+spec:
+  selector:
+    app: k8s-monitoring-expose
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080
+  type: NodePort

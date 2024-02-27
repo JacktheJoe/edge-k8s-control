@@ -1,0 +1,12 @@
+---
+
+- name: ubuntu update && upgrade
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: update && upgrade
+      ansible.builtin.apt:
+        update_cache: yes
+        name: "*"
+        state: latest
+        autoclean: yes

@@ -1,0 +1,21 @@
+kubernetes:
+  hosts:
+    10.200.3.11:
+    10.200.3.12:
+    10.200.3.13:
+
+ubuntu:
+  hosts:
+    10.200.3.11:
+    10.200.3.12:
+    10.200.3.13:
+
+test:
+  hosts:
+    10.200.3.11:
+  vars:
+    ansible_sudo_pass: 'Application2077@'  
+
+# development:
+#   children:
+#     kubernetes:

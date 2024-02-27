@@ -1,0 +1,54 @@
+ubuntu:
+  children:
+    database:
+    cluster4:
+    cluster5:
+
+kubernetes:
+  children:
+    masters:
+    workers:
+
+cluster4:
+  children:
+    cluster4_master:
+    cluster4_worker:
+
+cluster5:
+  children:
+    cluster5_master:
+    cluster5_worker:
+
+database:
+  hosts:
+    10.200.30.10:
+
+masters:
+  hosts:
+    10.200.34.10:
+    10.200.35.10:
+
+workers:
+  hosts:
+    10.200.34.11:
+    10.200.34.12:
+    10.200.35.11:
+    10.200.35.12:
+
+cluster4_master:
+  hosts:
+    10.200.34.10:
+
+cluster4_worker:
+  hosts:
+    10.200.34.11:
+    10.200.34.12:
+
+cluster5_master:
+  hosts:
+    10.200.35.10:
+
+cluster5_worker:
+  hosts:
+    10.200.35.11:
+    10.200.35.12:

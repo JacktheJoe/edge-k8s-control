@@ -1,0 +1,76 @@
+---
+
+- name: initialize cluster
+  hosts: test
+  become: yes
+  vars:
+    - flannel_cidr: 10.244.0.0/16
+    - helm_version: 3.12.3
+    - openebs_version: 3.9.0
+
+  tasks:
+    # install openshift, pyyaml to prevent error in following code
+    - name: install packages
+      pip:
+        name:
+          - openshift
+          - pyyaml
+          - kubernetes
+    # initialize cluster with kubeadm
+    - name: kubeadm init
+      ansible.builtin.shell: |
+        sudo kubeadm init --pod-network-cidr={{ flannel_cidr }}
+    # configure kubectl, and allow pod deployment in this single node cluster
+    - name: kubectl config and untaint
+      ansible.builtin.shell: |
+        mkdir -p $HOME/.kube
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+        kubectl taint nodes --all node-role.kubernetes.io/master-
+        kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+    # install CNI plugin and helm for network and package repo
+    - name: install flannel
+      kubernetes.core.k8s:
+        state: present
+        src: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+    - name: install helm
+      unarchive:
+        src: https://get.helm.sh/helm-v{{ helm_version }}}-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        extra_opts: "--strip-components=1"
+        owner: root
+        group: root
+        mode: 0755
+        remote_src: true
+      args:
+        creates: /usr/local/bin/helm
+    # install CSI driver for storage
+    - name: add openebs helm repo
+      kubernetes.core.helm_repository:
+        name: openebs
+        repo_url: https://openebs.github.io/charts
+    - name: update repo cache
+      kubernetes.core.helm:
+        name: dummy
+        namespace: kube-system
+        state: absent
+        update_repo_cache: true
+    - name: create namespace
+      k8s:
+        name: openebs
+        api_version: v1
+        kind: Namespace
+        state: present
+    # the previous steps might not be necessary
+    - name: helm install openebs
+      kubernetes.core.helm:
+        host: localhost
+        chart:
+          name: openebs
+          version: "{{ openebs_version }}"
+          source:
+            type: repo
+            location: https://openebs.github.io/charts
+        state: present
+        name: openebs
+        namespace: openebs

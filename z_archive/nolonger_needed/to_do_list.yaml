@@ -1,0 +1,45 @@
+---
+environment setup & plan:
+  base environment:
+    component: k8s base. 1.28.2
+  monitoring: 
+    component: 
+      original: 
+        - prometheus & related
+        - grafana
+      updated:
+        - metric server
+        - custom monitoring pod
+  processing:
+    component: 
+      original: 
+        - monitroring with prometheus HTTP API & network monitoring with cutomer
+      updated:
+        - native kube commands in the monitoring pod
+        - HTTP POST upadte with data server
+        - HTTP POST update with neighbouring clusters
+
+metric pulling:
+  prometheus: 
+    status: re-planned
+  metric server:
+    status: WIP
+
+metric update:
+  data server: Done 
+  neighbouring clusters: WIP
+
+metric processing:
+  metric pulling: 
+    CPU, RAM: Done
+    latency, bandwidth:
+      with DNS: Done
+      with peer: WIP
+      with customer: /???
+
+decision making:
+  new-deployment: WIP
+  migration: WIP
+
+migration processing:
+  migration: /???

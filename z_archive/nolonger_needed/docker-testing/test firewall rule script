@@ -1,0 +1,3 @@
+# should echo back the same thing
+
+curl -X POST -H "Content-Type: application/json" -d '{"name": "example", "description": "sample item"}' <NODE-IP>:30004/items/

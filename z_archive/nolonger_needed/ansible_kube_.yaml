@@ -1,0 +1,222 @@
+---
+
+# update RTC since some nodes might be off
+- name: update RTC
+  hosts: ubuntu
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: update RTC
+      shell: |
+        sudo systemctl unmask systemd-timesyncd
+        sudo apt install systemd-timesyncd
+        sudo systemctl enable systemd-timesyncd.service
+        sudo systemctl start systemd-timesyncd.service
+
+# install helm on all masters
+- name: install helm on all masters
+  hosts: masters
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+    - name: install helm
+      become: yes
+      shell: |
+        curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+        sudo apt-get install apt-transport-https --yes
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+        sudo apt-get update
+        sudo apt-get install helm
+
+# initialize cluster 1
+- name: initialize cluster 1
+  hosts: cluster1_master
+  become: yes
+  gather_facts: no
+
+  vars:
+    - home_path: /home/jack
+    - username: jack
+
+  tasks:
+
+    - name: cluster 1 initialize
+      shell: |
+        sudo kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
+      args:
+        chdir: $HOME
+        creates: cluster_initialized.txt
+
+    - name: create .kube config
+      become: yes
+      shell: |
+        mkdir -p $HOME/.kube
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+    - name: Install flannel Pod network
+      shell:  |
+        kubectl create ns kube-flannel
+        kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
+        helm repo add flannel https://flannel-io.github.io/flannel/
+        helm install flannel --set podCidr="10.244.0.0/16" --namespace kube-flannel flannel/flannel
+
+    - name: Get join token
+      become: yes
+      shell: |
+        sudo kubeadm token create  --print-join-command
+      register: kubernetes_join_command
+
+    - name: Copy join command to local file.
+      become: yes
+      local_action: copy content="{{ kubernetes_join_command.stdout_lines[0] }}" dest="/tmp/kubernetes_join_command" mode=0777
+
+# join cluster 1
+- name: cluster1 workers join
+  hosts: cluster1_worker
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+    - name: Copy join command from Ansiblehost to the worker nodes.
+      become: yes
+      copy:
+        src: /tmp/kubernetes_join_command
+        dest: /tmp/kubernetes_join_command
+        mode: 0777
+
+    - name: Join the Worker nodes to the cluster.
+      become: yes
+      command: sh /tmp/kubernetes_join_command
+      register: joined_or_not           
+
+# initialize cluster 2
+- name: initialize cluster 2
+  hosts: cluster2_master
+  become: yes
+  gather_facts: no
+
+  vars:
+    - home_path: /home/jack
+    - username: jack
+
+  tasks:
+
+    - name: cluster 2 initialize
+      shell: |
+        sudo kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
+      args:
+        chdir: $HOME
+        creates: cluster_initialized.txt
+
+    - name: create .kube config
+      become: yes
+      shell: |
+        mkdir -p $HOME/.kube
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+    - name: Install flannel Pod network
+      shell:  |
+        kubectl create ns kube-flannel
+        kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
+        helm repo add flannel https://flannel-io.github.io/flannel/
+        helm install flannel --set podCidr="10.244.0.0/16" --namespace kube-flannel flannel/flannel
+
+    - name: Get join token
+      become: yes
+      shell: |
+        sudo kubeadm token create  --print-join-command
+      register: kubernetes_join_command
+
+    - name: Copy join command to local file.
+      become: yes
+      local_action: copy content="{{ kubernetes_join_command.stdout_lines[0] }}" dest="/tmp/kubernetes_join_command" mode=0777
+
+# join cluster 2
+- name: cluster2 workers join
+  hosts: cluster2_worker
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+    - name: Copy join command from Ansiblehost to the worker nodes.
+      become: yes
+      copy:
+        src: /tmp/kubernetes_join_command
+        dest: /tmp/kubernetes_join_command
+        mode: 0777
+
+    - name: Join the Worker nodes to the cluster.
+      become: yes
+      command: sh /tmp/kubernetes_join_command
+      register: joined_or_not 
+
+# initialize cluster 3
+- name: initialize cluster 3
+  hosts: cluster3_master
+  become: yes
+  gather_facts: no
+
+  vars:
+    - home_path: /home/jack
+    - username: jack
+
+  tasks:
+
+    - name: cluster 3 initialize
+      shell: |
+        sudo kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
+      args:
+        chdir: $HOME
+        creates: cluster_initialized.txt
+
+    - name: create .kube config
+      become: yes
+      shell: |
+        mkdir -p $HOME/.kube
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+    - name: Install flannel Pod network
+      shell:  |
+        kubectl create ns kube-flannel
+        kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
+        helm repo add flannel https://flannel-io.github.io/flannel/
+        helm install flannel --set podCidr="10.244.0.0/16" --namespace kube-flannel flannel/flannel
+
+    - name: Get join token
+      become: yes
+      shell: |
+        sudo kubeadm token create  --print-join-command
+      register: kubernetes_join_command
+
+    - name: Copy join command to local file.
+      become: yes
+      local_action: copy content="{{ kubernetes_join_command.stdout_lines[0] }}" dest="/tmp/kubernetes_join_command" mode=0777
+
+# join cluster 3
+- name: cluster3 workers join
+  hosts: cluster3_worker
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+    - name: Copy join command from Ansiblehost to the worker nodes.
+      become: yes
+      copy:
+        src: /tmp/kubernetes_join_command
+        dest: /tmp/kubernetes_join_command
+        mode: 0777
+
+    - name: Join the Worker nodes to the cluster.
+      become: yes
+      command: sh /tmp/kubernetes_join_command
+      register: joined_or_not 
+

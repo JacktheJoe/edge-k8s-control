@@ -1,0 +1,1295 @@
+{
+    "status": "success",
+    "data": {
+        "resultType": "vector",
+        "result": [
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4753318"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26015273"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2972209"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "worker-1-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "28688735"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "worker-1-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "23827668"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "worker-1-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "7804285"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "worker-1-2",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26906338"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "worker-1-2",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "31203359"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "node": "worker-1-2",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "8963054"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-pod1d0cf45d_e86c_46d6_b030_008e65017d4d.slice/cri-containerd-64147518c515634636a68b2c9ab1b43967a76db6e069d0fdb1f088accfcb6bb4.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "64147518c515634636a68b2c9ab1b43967a76db6e069d0fdb1f088accfcb6bb4",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "mycurlpod",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "1404"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-pod4fb6f049_2609_4590_b6c5_aab56c94f4ab.slice/cri-containerd-2afde224a63997761a1296f3779329521592d929d1143974b7222913f7f1be72.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "2afde224a63997761a1296f3779329521592d929d1143974b7222913f7f1be72",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-proxy-mnb7p",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4753299"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-pod4fb6f049_2609_4590_b6c5_aab56c94f4ab.slice/cri-containerd-2afde224a63997761a1296f3779329521592d929d1143974b7222913f7f1be72.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "2afde224a63997761a1296f3779329521592d929d1143974b7222913f7f1be72",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-proxy-mnb7p",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26015172"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-pod4fb6f049_2609_4590_b6c5_aab56c94f4ab.slice/cri-containerd-2afde224a63997761a1296f3779329521592d929d1143974b7222913f7f1be72.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "2afde224a63997761a1296f3779329521592d929d1143974b7222913f7f1be72",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-proxy-mnb7p",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2972207"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-podccdf6444_3e8f_4808_8c54_86bc2a7b822f.slice/cri-containerd-05767cc9e6babd34471db935057e6af0b588bd4f4739b8692459083547f4b5e4.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "05767cc9e6babd34471db935057e6af0b588bd4f4739b8692459083547f4b5e4",
+                    "namespace": "kube-system",
+                    "node": "worker-1-2",
+                    "pod": "kube-proxy-drbq6",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26906345"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-podccdf6444_3e8f_4808_8c54_86bc2a7b822f.slice/cri-containerd-05767cc9e6babd34471db935057e6af0b588bd4f4739b8692459083547f4b5e4.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "05767cc9e6babd34471db935057e6af0b588bd4f4739b8692459083547f4b5e4",
+                    "namespace": "kube-system",
+                    "node": "worker-1-2",
+                    "pod": "kube-proxy-drbq6",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "31203403"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-podccdf6444_3e8f_4808_8c54_86bc2a7b822f.slice/cri-containerd-05767cc9e6babd34471db935057e6af0b588bd4f4739b8692459083547f4b5e4.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "05767cc9e6babd34471db935057e6af0b588bd4f4739b8692459083547f4b5e4",
+                    "namespace": "kube-system",
+                    "node": "worker-1-2",
+                    "pod": "kube-proxy-drbq6",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "8963062"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-poddc1fb75a_0279_4bc3_ac13_7fb3ab3aa404.slice/cri-containerd-6eac6dbefdf9d83bd08f89f6a89ff19815a2f5631cbe1fbe33b71f05b169664e.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "6eac6dbefdf9d83bd08f89f6a89ff19815a2f5631cbe1fbe33b71f05b169664e",
+                    "namespace": "kube-system",
+                    "node": "worker-1-1",
+                    "pod": "kube-proxy-jc74f",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "28689049"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-poddc1fb75a_0279_4bc3_ac13_7fb3ab3aa404.slice/cri-containerd-6eac6dbefdf9d83bd08f89f6a89ff19815a2f5631cbe1fbe33b71f05b169664e.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "6eac6dbefdf9d83bd08f89f6a89ff19815a2f5631cbe1fbe33b71f05b169664e",
+                    "namespace": "kube-system",
+                    "node": "worker-1-1",
+                    "pod": "kube-proxy-jc74f",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "23827896"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-poddc1fb75a_0279_4bc3_ac13_7fb3ab3aa404.slice/cri-containerd-6eac6dbefdf9d83bd08f89f6a89ff19815a2f5631cbe1fbe33b71f05b169664e.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "6eac6dbefdf9d83bd08f89f6a89ff19815a2f5631cbe1fbe33b71f05b169664e",
+                    "namespace": "kube-system",
+                    "node": "worker-1-1",
+                    "pod": "kube-proxy-jc74f",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "7804358"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-podedb19b3e_498d_40d5_9db5_a7f3800c0851.slice/cri-containerd-b87c44febf870df989f68ab7beb72b60d8e02f3e4c78df95bdaf665e4df87d6a.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "b87c44febf870df989f68ab7beb72b60d8e02f3e4c78df95bdaf665e4df87d6a",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "k8s-monitoring-expose-deployment-64ff779446-wq229",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "1934"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod27179eb1_17af_4b6d_a43e_34d10c6da433.slice/cri-containerd-a5a9a6445a1007af3ca34b452eea3083e7f1f0e63c8a2907f20418975a9e7d26.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "a5a9a6445a1007af3ca34b452eea3083e7f1f0e63c8a2907f20418975a9e7d26",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "coredns-5dd5756b68-rwtgs",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2646393"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod32c24c7d_c1e5_48b1_86f2_f84bb60d8895.slice/cri-containerd-70d65b0f26522fd3a4f417ea6e0445acf45e1bfce26bcfb5ba47673ad977715d.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "70d65b0f26522fd3a4f417ea6e0445acf45e1bfce26bcfb5ba47673ad977715d",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "alertmanager-main-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "5986389"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod62bc3747_44da_496a_bf2b_aa776eb00383.slice/cri-containerd-c0327cf267577bd2f8403b5b769a3111f89351fe365d7cff94d67cbf22de6d20.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "c0327cf267577bd2f8403b5b769a3111f89351fe365d7cff94d67cbf22de6d20",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "alertmanager-main-2",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "5904932"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod6fae7c4e_bde6_4dcb_90ff_f5383d55ef82.slice/cri-containerd-83fac313faf696f3ea9d5c5cbef990c11a0f771a2891a4f629db3c2a1eef79c2.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "83fac313faf696f3ea9d5c5cbef990c11a0f771a2891a4f629db3c2a1eef79c2",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "kube-state-metrics-6b4d48dcb4-bx5mw",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4926883"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod741f6dce_d570_40f0_9221_d6557090b294.slice/cri-containerd-cb8e3a0a6a5473d63f5d67e8921c3c9a7827b8a16539d3df7aeb7f1220fa2937.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "cb8e3a0a6a5473d63f5d67e8921c3c9a7827b8a16539d3df7aeb7f1220fa2937",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "prometheus-adapter-79c588b474-rpq4k",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "7433433"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod76795068_72c9_4a7c_bd6a_e775700e64ac.slice/cri-containerd-43ef68ecb029ae8ec3529dd672c30f0e45fa4fbda280d77eca3adb3015e2bcda.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "43ef68ecb029ae8ec3529dd672c30f0e45fa4fbda280d77eca3adb3015e2bcda",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "prometheus-adapter-79c588b474-pfnrm",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "7687379"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod7d104909_ffa4_4078_90a8_0cb9193e2330.slice/cri-containerd-a509b6200ec8b6f9d0f58f2f2c45314f6bf81d16f19c9ba7646eef8e07986fb7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "a509b6200ec8b6f9d0f58f2f2c45314f6bf81d16f19c9ba7646eef8e07986fb7",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "node-exporter-t2htb",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26906414"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod7d104909_ffa4_4078_90a8_0cb9193e2330.slice/cri-containerd-a509b6200ec8b6f9d0f58f2f2c45314f6bf81d16f19c9ba7646eef8e07986fb7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "a509b6200ec8b6f9d0f58f2f2c45314f6bf81d16f19c9ba7646eef8e07986fb7",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "node-exporter-t2htb",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "31203462"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod7d104909_ffa4_4078_90a8_0cb9193e2330.slice/cri-containerd-a509b6200ec8b6f9d0f58f2f2c45314f6bf81d16f19c9ba7646eef8e07986fb7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "a509b6200ec8b6f9d0f58f2f2c45314f6bf81d16f19c9ba7646eef8e07986fb7",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "node-exporter-t2htb",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "8963077"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod8be84829_0dc8_4e2d_be3a_ef7f534edba3.slice/cri-containerd-da9718ef7bda2332c8748fe6d3dcd016e23eb33e9ca17ba2c90a890f7050e07e.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "da9718ef7bda2332c8748fe6d3dcd016e23eb33e9ca17ba2c90a890f7050e07e",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "blackbox-exporter-6cfc4bffb6-crgvz",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "534724"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod904ef109_2867_4a16_98f6_8b5af7baa433.slice/cri-containerd-b61bc46700e09b0ecece0c94e159844c0eacf644b253a434bf155dd7477b7cae.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "b61bc46700e09b0ecece0c94e159844c0eacf644b253a434bf155dd7477b7cae",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "node-exporter-nxplt",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "28688746"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod904ef109_2867_4a16_98f6_8b5af7baa433.slice/cri-containerd-b61bc46700e09b0ecece0c94e159844c0eacf644b253a434bf155dd7477b7cae.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "b61bc46700e09b0ecece0c94e159844c0eacf644b253a434bf155dd7477b7cae",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "node-exporter-nxplt",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "23827679"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod904ef109_2867_4a16_98f6_8b5af7baa433.slice/cri-containerd-b61bc46700e09b0ecece0c94e159844c0eacf644b253a434bf155dd7477b7cae.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "b61bc46700e09b0ecece0c94e159844c0eacf644b253a434bf155dd7477b7cae",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "node-exporter-nxplt",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "7804288"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod9cef47c6e4279c4f8d44d19c1a1196e2.slice/cri-containerd-de48c01abef714b0d5d6b5e9fba3324d17420b3d695e9e4b91c83caa08d94a82.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "de48c01abef714b0d5d6b5e9fba3324d17420b3d695e9e4b91c83caa08d94a82",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-apiserver-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4753297"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod9cef47c6e4279c4f8d44d19c1a1196e2.slice/cri-containerd-de48c01abef714b0d5d6b5e9fba3324d17420b3d695e9e4b91c83caa08d94a82.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "de48c01abef714b0d5d6b5e9fba3324d17420b3d695e9e4b91c83caa08d94a82",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-apiserver-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26015092"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod9cef47c6e4279c4f8d44d19c1a1196e2.slice/cri-containerd-de48c01abef714b0d5d6b5e9fba3324d17420b3d695e9e4b91c83caa08d94a82.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "de48c01abef714b0d5d6b5e9fba3324d17420b3d695e9e4b91c83caa08d94a82",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-apiserver-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2972205"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod9f44aece_f9af_418c_ae39_938c8e933559.slice/cri-containerd-e37f4ab1777b20de3b6063bd62ff05ee97b99841d61e882022e0943867a2dea0.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "e37f4ab1777b20de3b6063bd62ff05ee97b99841d61e882022e0943867a2dea0",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "prometheus-k8s-0",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "14051442"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-poda44e0783_21c3_4a3a_b4bf_48e8b4c745f9.slice/cri-containerd-cbb9e3b1e262aa580505f0b0d0b06e853b53882de0ba50233a91552fd700600a.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "cbb9e3b1e262aa580505f0b0d0b06e853b53882de0ba50233a91552fd700600a",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "grafana-748964b847-gsjrm",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "1482673"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podb37c54ef_ae6e_481b_8cf7_57b227c388ab.slice/cri-containerd-e1eefd608de013d2952f0edc6257cdbf3561f3a41dbfa33659d0e416fcea9737.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "e1eefd608de013d2952f0edc6257cdbf3561f3a41dbfa33659d0e416fcea9737",
+                    "namespace": "monitoring",
+                    "node": "worker-1-2",
+                    "pod": "alertmanager-main-0",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "5969180"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podb635b9c8_110c_4b12_a954_ac5353b8c31a.slice/cri-containerd-4a994acd12a7023ae4ae56ae4cbc7d21b9a915d5ce7c64f7bf070da2d450d8c1.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "4a994acd12a7023ae4ae56ae4cbc7d21b9a915d5ce7c64f7bf070da2d450d8c1",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "coredns-5dd5756b68-fhshl",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2636162"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podb8ce708f05fd43bbdb69e3432d39d207.slice/cri-containerd-bdf1c71e3c876b952059e75094e34f12ce5cd09b0f307db03d37fa7113d6f4d0.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "bdf1c71e3c876b952059e75094e34f12ce5cd09b0f307db03d37fa7113d6f4d0",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "etcd-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4753318"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podb8ce708f05fd43bbdb69e3432d39d207.slice/cri-containerd-bdf1c71e3c876b952059e75094e34f12ce5cd09b0f307db03d37fa7113d6f4d0.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "bdf1c71e3c876b952059e75094e34f12ce5cd09b0f307db03d37fa7113d6f4d0",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "etcd-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26015355"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podb8ce708f05fd43bbdb69e3432d39d207.slice/cri-containerd-bdf1c71e3c876b952059e75094e34f12ce5cd09b0f307db03d37fa7113d6f4d0.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "bdf1c71e3c876b952059e75094e34f12ce5cd09b0f307db03d37fa7113d6f4d0",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "etcd-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2972209"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc26cb1ca_c7c8_4ab4_8f37_b807536d6673.slice/cri-containerd-8ac7966534d679670a142231e20b8afb1668e90c69dc4c04fe843d7df67b3db7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "8ac7966534d679670a142231e20b8afb1668e90c69dc4c04fe843d7df67b3db7",
+                    "namespace": "monitoring",
+                    "node": "master-1",
+                    "pod": "node-exporter-lqtzz",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4753300"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc26cb1ca_c7c8_4ab4_8f37_b807536d6673.slice/cri-containerd-8ac7966534d679670a142231e20b8afb1668e90c69dc4c04fe843d7df67b3db7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "8ac7966534d679670a142231e20b8afb1668e90c69dc4c04fe843d7df67b3db7",
+                    "namespace": "monitoring",
+                    "node": "master-1",
+                    "pod": "node-exporter-lqtzz",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26015214"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc26cb1ca_c7c8_4ab4_8f37_b807536d6673.slice/cri-containerd-8ac7966534d679670a142231e20b8afb1668e90c69dc4c04fe843d7df67b3db7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "8ac7966534d679670a142231e20b8afb1668e90c69dc4c04fe843d7df67b3db7",
+                    "namespace": "monitoring",
+                    "node": "master-1",
+                    "pod": "node-exporter-lqtzz",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2972209"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc27d8add_dd53_47f1_8b66_cbd7423e1d00.slice/cri-containerd-8199319c7604221098c76d70069cd17df2ddbf049f357ddbfeefc090996fc5c7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "8199319c7604221098c76d70069cd17df2ddbf049f357ddbfeefc090996fc5c7",
+                    "namespace": "kube-flannel",
+                    "node": "master-1",
+                    "pod": "kube-flannel-ds-nklxr",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4753290"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc27d8add_dd53_47f1_8b66_cbd7423e1d00.slice/cri-containerd-8199319c7604221098c76d70069cd17df2ddbf049f357ddbfeefc090996fc5c7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "8199319c7604221098c76d70069cd17df2ddbf049f357ddbfeefc090996fc5c7",
+                    "namespace": "kube-flannel",
+                    "node": "master-1",
+                    "pod": "kube-flannel-ds-nklxr",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26014992"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc27d8add_dd53_47f1_8b66_cbd7423e1d00.slice/cri-containerd-8199319c7604221098c76d70069cd17df2ddbf049f357ddbfeefc090996fc5c7.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "8199319c7604221098c76d70069cd17df2ddbf049f357ddbfeefc090996fc5c7",
+                    "namespace": "kube-flannel",
+                    "node": "master-1",
+                    "pod": "kube-flannel-ds-nklxr",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2972197"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc325bab3_5526_4cef_90d6_5f618cf5a787.slice/cri-containerd-c29a1e109ab40f4a84e5b815cbc899cbbaafa0b9e4d39543008b0b50ecbee47f.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "c29a1e109ab40f4a84e5b815cbc899cbbaafa0b9e4d39543008b0b50ecbee47f",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "prometheus-k8s-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "14202828"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podd8ad9a83_0812_44f3_a96a_16be9c310667.slice/cri-containerd-cec9251412c2819aaa2514eb11267b050e0f84a2b63a9dff8705e45b175c93cf.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "eth0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "cec9251412c2819aaa2514eb11267b050e0f84a2b63a9dff8705e45b175c93cf",
+                    "namespace": "monitoring",
+                    "node": "worker-1-1",
+                    "pod": "prometheus-operator-68f6c79f9d-jvprp",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "1524360"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podda5904a9_46b4_4e70_a541_19b9ce4bfabb.slice/cri-containerd-58e8dde55cfeae3c5c5e3a88bbd424d9bd4e425e2e348793af68e33cb75a6dde.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "58e8dde55cfeae3c5c5e3a88bbd424d9bd4e425e2e348793af68e33cb75a6dde",
+                    "namespace": "kube-flannel",
+                    "node": "worker-1-1",
+                    "pod": "kube-flannel-ds-w5prh",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "28688703"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podda5904a9_46b4_4e70_a541_19b9ce4bfabb.slice/cri-containerd-58e8dde55cfeae3c5c5e3a88bbd424d9bd4e425e2e348793af68e33cb75a6dde.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "58e8dde55cfeae3c5c5e3a88bbd424d9bd4e425e2e348793af68e33cb75a6dde",
+                    "namespace": "kube-flannel",
+                    "node": "worker-1-1",
+                    "pod": "kube-flannel-ds-w5prh",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "23827631"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podda5904a9_46b4_4e70_a541_19b9ce4bfabb.slice/cri-containerd-58e8dde55cfeae3c5c5e3a88bbd424d9bd4e425e2e348793af68e33cb75a6dde.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.11:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "58e8dde55cfeae3c5c5e3a88bbd424d9bd4e425e2e348793af68e33cb75a6dde",
+                    "namespace": "kube-flannel",
+                    "node": "worker-1-1",
+                    "pod": "kube-flannel-ds-w5prh",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "7804270"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pode32244aeb60edd24301116b6362baca9.slice/cri-containerd-82eb34f59bc4e17b0b4b38fa34a3659262c6b9361ffaa548d3cb58d46d1a6a72.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "82eb34f59bc4e17b0b4b38fa34a3659262c6b9361ffaa548d3cb58d46d1a6a72",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-scheduler-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4753299"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pode32244aeb60edd24301116b6362baca9.slice/cri-containerd-82eb34f59bc4e17b0b4b38fa34a3659262c6b9361ffaa548d3cb58d46d1a6a72.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "82eb34f59bc4e17b0b4b38fa34a3659262c6b9361ffaa548d3cb58d46d1a6a72",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-scheduler-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26015172"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pode32244aeb60edd24301116b6362baca9.slice/cri-containerd-82eb34f59bc4e17b0b4b38fa34a3659262c6b9361ffaa548d3cb58d46d1a6a72.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "82eb34f59bc4e17b0b4b38fa34a3659262c6b9361ffaa548d3cb58d46d1a6a72",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-scheduler-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2972207"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podeafe79d3_f115_4954_8be4_cac6c435b9b4.slice/cri-containerd-4480fcb05d0e7567f45149d09934bb949f33631c761fe2e541c3562cc3720789.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "4480fcb05d0e7567f45149d09934bb949f33631c761fe2e541c3562cc3720789",
+                    "namespace": "kube-flannel",
+                    "node": "worker-1-2",
+                    "pod": "kube-flannel-ds-qs9j5",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26906280"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podeafe79d3_f115_4954_8be4_cac6c435b9b4.slice/cri-containerd-4480fcb05d0e7567f45149d09934bb949f33631c761fe2e541c3562cc3720789.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "4480fcb05d0e7567f45149d09934bb949f33631c761fe2e541c3562cc3720789",
+                    "namespace": "kube-flannel",
+                    "node": "worker-1-2",
+                    "pod": "kube-flannel-ds-qs9j5",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "31203276"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podeafe79d3_f115_4954_8be4_cac6c435b9b4.slice/cri-containerd-4480fcb05d0e7567f45149d09934bb949f33631c761fe2e541c3562cc3720789.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.12:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "4480fcb05d0e7567f45149d09934bb949f33631c761fe2e541c3562cc3720789",
+                    "namespace": "kube-flannel",
+                    "node": "worker-1-2",
+                    "pod": "kube-flannel-ds-qs9j5",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "8963034"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podfe51efd3ed46beec048664b047f5d691.slice/cri-containerd-d19cf359d0bc46b25bd5655db0294bc23b672c17017fa943af0f4e6fc739d8de.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "cni0",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "d19cf359d0bc46b25bd5655db0294bc23b672c17017fa943af0f4e6fc739d8de",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-controller-manager-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "4753318"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podfe51efd3ed46beec048664b047f5d691.slice/cri-containerd-d19cf359d0bc46b25bd5655db0294bc23b672c17017fa943af0f4e6fc739d8de.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "enp6s18",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "d19cf359d0bc46b25bd5655db0294bc23b672c17017fa943af0f4e6fc739d8de",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-controller-manager-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "26015347"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "container_network_receive_packets_total",
+                    "endpoint": "https-metrics",
+                    "id": "/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podfe51efd3ed46beec048664b047f5d691.slice/cri-containerd-d19cf359d0bc46b25bd5655db0294bc23b672c17017fa943af0f4e6fc739d8de.scope",
+                    "image": "registry.k8s.io/pause:3.6",
+                    "instance": "10.200.31.10:10250",
+                    "interface": "flannel.1",
+                    "job": "kubelet",
+                    "metrics_path": "/metrics/cadvisor",
+                    "name": "d19cf359d0bc46b25bd5655db0294bc23b672c17017fa943af0f4e6fc739d8de",
+                    "namespace": "kube-system",
+                    "node": "master-1",
+                    "pod": "kube-controller-manager-master-1",
+                    "service": "kubelet"
+                },
+                "value": [
+                    1697232459.535,
+                    "2972209"
+                ]
+            }
+        ]
+    }
+}

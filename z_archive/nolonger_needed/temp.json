@@ -1,0 +1,33 @@
+{
+    "subnet": "10.200.31.0/24",
+    "time": "2023-10-31 11:29:36",
+    "data": {
+      "general": {
+        "mili_CPU": "16",
+        "Mi_RAM": "1658.5",
+        "percent_CPU": "0",
+        "percent_RAM": "43",
+        "ping_ttl": "116",
+        "ping_time": "5.35",
+        "aval_bw": {
+            "cluster_1": "localhost",
+            "cluster_2": "12.17",
+            "cluster_3": "11.49"
+        }
+      },
+      "detail": {
+        "node_1": {
+          "mili_CPU": "16",
+          "Mi_RAM": "1655",
+          "percent_CPU": "0",
+          "percent_RAM": "43"
+        },
+        "node_2": {
+          "mili_CPU": "16",
+          "Mi_RAM": "1662",
+          "percent_CPU": "0",
+          "percent_RAM": "43"
+        }
+      }
+    }
+  }

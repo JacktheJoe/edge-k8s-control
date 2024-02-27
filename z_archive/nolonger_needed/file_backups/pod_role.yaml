@@ -1,0 +1,22 @@
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: test-admin
+rules:
+- apiGroups: ["*"] # This was the change
+  resources: ["pods", "nodes"]
+  verbs: ["get", "watch", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: k8s-monitoring-expose
+subjects:
+- kind: ServiceAccount
+  name: k8s-monitoring-expose
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: k8s-monitoring-expose
+  apiGroup: rbac.authorization.k8s.io
