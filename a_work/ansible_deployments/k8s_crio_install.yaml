@@ -93,7 +93,7 @@
 
     - name: Show UFW status output
       ansible.builtin.debug:
-        msg: "{{ ufw_status.stdout_lines }}"  # Print each line of the command output
+        msg: "{{ ufw_status.stdout_lines }}"
 
 - name: worker firewall
   hosts: workers
@@ -323,3 +323,98 @@
     - name: Execute the join command on worker nodes
       shell: sh /tmp/kubernetes_join_command
       when: inventory_hostname in groups['cluster4_worker'] or inventory_hostname in groups['cluster5_worker']
+
+- name: enable criu for crio 
+  hosts: kubernetes
+  become_user: root
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+    - name: enable criu for crio 
+      ansible.builtin.replace:
+        path: /etc/crio/crio.conf
+        regexp: '^# enable_criu_support = false'
+        replace: 'enable_criu_support = true'
+
+    - name: Change drop_infra_ctr setting in CRIO configuration
+      ansible.builtin.replace:
+        path: /etc/crio/crio.conf
+        regexp: '^# drop_infra_ctr = true'
+        replace: 'drop_infra_ctr = false'
+
+    - name: Install CRIU
+      ansible.builtin.apt:
+        name: criu
+        state: present
+    
+    - name: Restart CRIO service
+      ansible.builtin.systemd:
+        name: crio
+        state: restarted
+        daemon_reload: yes
+    
+    - name: Get recent CRIO service logs
+      ansible.builtin.command:
+        cmd: "journalctl -u crio --no-pager --lines=100"
+      register: crio_logs
+
+    - name: Display CRIO logs
+      ansible.builtin.debug:
+        msg: "{{ crio_logs.stdout }}"
+
+- name: enable container checkpoing gate
+  hosts: masters
+  become_user: root
+  become: yes
+  gather_facts: no 
+
+  tasks: 
+
+    - name: change config for apiserver
+      ansible.builtin.replace:
+        path: /etc/kubernetes/manifests/kube-apiserver.yaml
+        regexp: '(\s+- kube-apiserver\n)'
+        replace: '\1    - --feature-gates=ContainerCheckpoint=true\n'
+
+    - name: change config for controller-manager
+      ansible.builtin.replace:
+        path: /etc/kubernetes/manifests/kube-controller-manager.yaml
+        regexp: '(\s+- kube-controller-manager\n)'
+        replace: '\1    - --feature-gates=ContainerCheckpoint=true\n'
+
+    - name: change config for scheduler
+      ansible.builtin.replace:
+        path: /etc/kubernetes/manifests/kube-scheduler.yaml
+        regexp: '(\s+- kube-scheduler\n)'
+        replace: '\1    - --feature-gates=ContainerCheckpoint=true\n'
+
+- name: enable container checkpoint for kubelet
+  hosts: kubernetes
+  become_user: root
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+    - name: Ensure checkpoint enabled for kubelet
+      ansible.builtin.blockinfile:
+        path: /var/lib/kubelet/config.yaml
+        block: |
+          featureGates:
+            ContainerCheckpoint: true
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
+        insertafter: EOF
+
+- name: Reboot the host
+  hosts: kubernetes
+  become_user: root
+  become: yes
+  gather_facts: no 
+
+  tasks:
+
+    - name: Reboot the system
+      ansible.builtin.reboot:
+        test_command: ip a

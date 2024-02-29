@@ -1,0 +1,14 @@
+---
+
+- name: install buildah for checkpoint restore on k8s 
+  hosts: kubernetes
+  become_user: root
+  become: yes
+  gather_facts: no
+
+  tasks:
+  
+    - name: install buildah
+      ansible.builtin.apt:
+        name: buildah
+        state: present
