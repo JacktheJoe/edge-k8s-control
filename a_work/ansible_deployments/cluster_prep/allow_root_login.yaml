@@ -1,0 +1,24 @@
+---
+
+- name: allow root login
+  hosts: masters
+  become_user: root
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: allow root login via ssh # for testing purpose
+      lineinfile:
+            dest: /etc/ssh/sshd_config
+            regexp: '^PermitRootLogin'
+            line: "PermitRootLogin yes"
+            state: present
+            backup: yes
+      notify:
+        - restart ssh
+
+  handlers:
+    - name: restart ssh
+      service:
+        name: sshd
+        state: restarted

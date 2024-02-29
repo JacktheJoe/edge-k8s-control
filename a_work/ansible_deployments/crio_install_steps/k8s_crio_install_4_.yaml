@@ -1,0 +1,38 @@
+---
+
+# install k8s modules 
+- name: Install Kubernetes modules
+  hosts: cluster4
+  become: yes
+  become_user: root
+  gather_facts: no
+
+  tasks:
+
+    - name: Update apt cache and install prerequisites
+      ansible.builtin.apt:
+        update_cache: yes
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+        state: present
+
+    - name: Download Kubernetes GPG key
+      ansible.builtin.get_url:
+        url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+        dest: "/tmp/kubernetes-archive-keyring.gpg"
+        mode: '0644'
+
+    - name: Add Kubernetes GPG key to apt-key
+      ansible.builtin.shell:
+        cmd: "gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg /tmp/kubernetes-archive-keyring.gpg"
+      args:
+        removes: "/tmp/kubernetes-archive-keyring.gpg"
+
+    - name: Add Kubernetes apt repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/kubernetes.list
+        line: "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"
+        create: yes
+        state: present

@@ -1,0 +1,56 @@
+---
+
+# install crio on kube nodes
+- name: install crio
+  hosts: cluster4
+  become: yes
+  become_user: root
+  gather_facts: no
+
+  vars:
+    OS: xUbuntu_22.04
+    # prev_version: 1.28
+    # VERSION: 1.28.2
+    VERSION: 1.28
+
+  tasks:
+
+    - name: Add the stable libcontainers repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+        line: "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ OS }}/ /"
+        create: yes
+        state: present
+
+    - name: Add the specific version CRIO repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:{{ VERSION }}.list
+        # line: "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ prev_version }}:/{{ VERSION }}/{{ OS }}/ /"
+        line: "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ VERSION }}/{{ OS }}/ /"
+        create: yes
+        state: present
+
+    - name: Download CRIO Release key for specific version
+      ansible.builtin.get_url:
+        # url: "https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:/{{ prev_version }}:/{{ VERSION }}/{{ OS }}/Release.key"
+        url: "https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:/{{ VERSION }}/{{ OS }}/Release.key"
+        dest: "/tmp/crio_release.key"
+        mode: '0644'
+
+    - name: Add CRIO Release key for specific version to apt-key
+      ansible.builtin.shell:
+        cmd: "apt-key add /tmp/crio_release.key"
+      args:
+        removes: "/tmp/crio_release.key"
+
+    - name: Download libcontainers Release key
+      ansible.builtin.get_url:
+        url: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ OS }}/Release.key"
+        dest: "/tmp/libcontainers_release.key"
+        mode: '0644'
+
+    - name: Add libcontainers Release key to apt-key
+      ansible.builtin.shell:
+        cmd: "apt-key add /tmp/libcontainers_release.key"
+      args:
+        removes: "/tmp/libcontainers_release.key"

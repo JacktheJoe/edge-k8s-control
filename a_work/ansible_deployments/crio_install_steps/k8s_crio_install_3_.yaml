@@ -1,0 +1,33 @@
+---
+
+# install crio on kube nodes
+- name: install crio
+  hosts: cluster4
+  become: yes
+  become_user: root
+  gather_facts: no
+
+  vars:
+    OS: xUbuntu_22.04
+    # prev_version: 1.28
+    # VERSION: 1.28.2
+    VERSION: 1.28
+
+  tasks:
+
+    - name: Update and install packages
+      shell: |
+        apt update && apt install -y cri-o cri-o-runc
+      register: apt_output
+    - debug: var=apt_output.stdout
+
+    - name: Reload systemd daemon
+      ansible.builtin.systemd:
+        daemon_reload: yes
+
+    - name: Enable and start cri-o service
+      ansible.builtin.systemd:
+        name: crio
+        enabled: yes
+        state: started
+

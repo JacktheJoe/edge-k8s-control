@@ -1,6 +1,5 @@
 ubuntu:
   children:
-    database:
     cluster4:
     cluster5:
 
@@ -18,10 +17,6 @@ cluster5:
   children:
     cluster5_master:
     cluster5_worker:
-
-database:
-  hosts:
-    10.200.30.10:
 
 masters:
   hosts:

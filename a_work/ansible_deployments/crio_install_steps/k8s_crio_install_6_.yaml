@@ -1,0 +1,23 @@
+---
+
+- name: Install Kubernetes modules
+  hosts: cluster4
+  become: yes
+  become_user: root
+  gather_facts: no
+
+  tasks:
+
+    - name: Enable and start the Kubelet service
+      ansible.builtin.systemd:
+        name: kubelet
+        enabled: yes
+        state: started
+
+    - name: Pull images required by Kubeadm
+      ansible.builtin.command:
+        cmd: kubeadm config images pull
+      # Using 'changed_when: False' since 'kubeadm config images pull' does not provide
+      # an easy way to check if anything was changed but is idempotent in nature.
+      changed_when: False
+
