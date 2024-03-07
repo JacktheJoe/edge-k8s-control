@@ -1,17 +1,17 @@
 ---
 - name: Set up root user password on selected Ubuntu hosts
   hosts: selected_ubuntu_hosts
-  become: yes  # Elevate privilege to become root
+  become: yes
   gather_facts: no
 
   vars:
     root_password: "{{ '  - name: Add GPG key for Kubernetes repository
-      ansible.builtin.apt_key:' }}"  # Replace this with your encrypted password
+      ansible.builtin.apt_key:' }}"
 
   tasks:
     - name: Set root user password
       ansible.builtin.user:
         name: root
         password: "{{ root_password }}"
-        update_password: always  # Use 'always' to update the password if it's different from what's on the system
+        update_password: always
 

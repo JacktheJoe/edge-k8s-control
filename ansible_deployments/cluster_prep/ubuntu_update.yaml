@@ -1,6 +1,6 @@
 ---
 - name: Update and upgrade all packages on Ubuntu hosts
-  hosts: cluster4:cluster5
+  hosts: ubuntu
   become: yes
   gather_facts: no
 

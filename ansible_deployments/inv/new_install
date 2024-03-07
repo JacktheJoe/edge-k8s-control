@@ -1,0 +1,108 @@
+ubuntu:
+  children:
+    database:
+    cluster1:
+    cluster2:
+    cluster3:
+    cluster4:
+    cluster5:
+
+kubernetes:
+  children:
+    masters:
+    workers:
+
+database:
+  hosts:
+    10.100.20.10:
+
+cluster1:
+  children:
+    cluster1_master:
+    cluster1_worker:
+
+cluster2:
+  children:
+    cluster2_master:
+    cluster2_worker:
+
+cluster3:
+  children:
+    cluster3_master:
+    cluster3_worker:
+
+cluster4:
+  children:
+    cluster4_master:
+    cluster4_worker:
+
+cluster5:
+  children:
+    cluster5_master:
+    cluster5_worker:
+
+masters:
+  hosts:
+    10.100.21.10:
+    10.100.22.10:
+    10.100.23.10:
+    10.100.24.10:
+    10.100.25.10:
+
+workers:
+  hosts:
+    10.100.21.21:
+    10.100.21.22:
+    10.100.22.21:
+    10.100.22.22:
+    10.100.23.21:
+    10.100.23.22:
+    10.100.24.21:
+    10.100.24.22:
+    10.100.25.21:
+    10.100.25.22:
+
+cluster1_master:
+  hosts:
+    10.100.21.10:
+
+cluster1_worker:
+  hosts:
+    10.100.21.21:
+    10.100.21.22:
+
+cluster2_master:
+  hosts:
+    10.100.22.10:
+
+cluster2_worker:
+  hosts:
+    10.100.22.21:
+    10.100.22.22:
+
+cluster3_master:
+  hosts:
+    10.100.23.10:
+
+cluster3_worker:
+  hosts:
+    10.100.23.21:
+    10.100.23.22:
+
+cluster4_master:
+  hosts:
+    10.100.24.10:
+
+cluster4_worker:
+  hosts:
+    10.100.24.21:
+    10.100.24.22:
+
+cluster5_master:
+  hosts:
+    10.100.25.10:
+
+cluster5_worker:
+  hosts:
+    10.100.25.21:
+    10.100.25.22:

@@ -2,8 +2,20 @@
 
 # installs cri-o, k8s components, calico
 
+- name: Reboot to sync time
+  hosts: cluster1
+  become_user: root
+  become: yes
+  gather_facts: no 
+
+  tasks:
+
+    - name: Reboot the system
+      ansible.builtin.reboot:
+        test_command: ip a
+
 - name: node preparation
-  hosts: kubernetes
+  hosts: cluster1
   become_user: root
   become: yes
   gather_facts: yes
@@ -56,7 +68,7 @@
         cmd: ufw --force enable
 
 - name: control_plane firewall
-  hosts: masters
+  hosts: cluster1_master
   become_user: root
   become: yes
   gather_facts: no
@@ -96,7 +108,7 @@
         msg: "{{ ufw_status.stdout_lines }}"
 
 - name: worker firewall
-  hosts: workers
+  hosts: cluster1_worker
   become_user: root
   become: yes
   gather_facts: no 
@@ -133,15 +145,16 @@
         msg: "{{ ufw_status.stdout_lines }}"
 
 - name: install cri-o runtime
-  hosts: kubernetes
+  hosts: cluster1
   become_user: root
   become: yes
   gather_facts: no
 
   vars:
     OS: xUbuntu_20.04
-    CRIO_VERSION_prefix: 1.28
-    CRIO_VERSION: 1.28.2
+    # CRIO_VERSION_prefix: 1.28
+    # CRIO_VERSION: 1.28.2
+    CRIO_VERSION: 1.28
 
   tasks:
 #
@@ -172,11 +185,11 @@
     - name: add cri-o repo
       shell: | 
         echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ OS }}/ /"|sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-        echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ CRIO_VERSION_prefix }}:/{{ CRIO_VERSION }}/{{ OS }}/ /"|sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:{{ CRIO_VERSION }}.list
+        echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ CRIO_VERSION }}/{{ OS }}/ /"|sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:{{ CRIO_VERSION }}.list
 
     - name: add GPG key for cri-o repo
       shell: | 
-        curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ CRIO_VERSION_prefix }}:{{ CRIO_VERSION }}/{{ OS }}/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
+        curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ CRIO_VERSION }}/{{ OS }}/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
         curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ OS }}/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
 
     - name: Update APT package cache
@@ -205,37 +218,75 @@
         state: started
     
 - name: install k8s modules
-  hosts: kubernetes
+  hosts: cluster1
   become_user: root
   become: yes
   gather_facts: no
 
   vars:
-    kube_version: 1.28.2-00
+    kubernetes_version: 1.28
+    kube_version: 1.28.0-1.1
 
   tasks: 
-    - name: Add the GPG key for the Kubernetes repository
-      ansible.builtin.apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        state: present
+    # - name: Add the GPG key for the Kubernetes repository
+    #   ansible.builtin.apt_key:
+    #     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    #     state: present
+# 
+    # - name: Add the Kubernetes apt repository
+    #   ansible.builtin.apt_repository:
+    #     repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+    #     state: present
 
-    - name: Add the Kubernetes apt repository
-      ansible.builtin.apt_repository:
-        repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+    # old google repo deprecated 
+
+    - name: Ensure necessary packages are installed
+      ansible.builtin.apt:
         state: present
+        update_cache: yes
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gpg
+
+    - name: Ensure the /etc/apt/keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download and dearmor the Kubernetes signing key
+      ansible.builtin.shell: |
+        curl -fsSL https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/Release.key | gpg --dearmor --yes -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+      args:
+        executable: /bin/bash
+      register: gpg_command
+      failed_when: gpg_command.rc != 0 and "no valid OpenPGP data found" not in gpg_command.stderr
+
+    - name: Add Kubernetes apt repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/kubernetes.list
+        line: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/ /"
+        create: yes
+
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
 
     - name: Install Kubernetes components
       ansible.builtin.apt:
         name: "{{ item }}"
         state: present
         update_cache: yes
+        allow_downgrade: yes
       loop:
         - kubeadm={{ kube_version }}
         - kubelet={{ kube_version }}
         - kubectl={{ kube_version }}
 
 - name: init cluster
-  hosts: masters
+  hosts: cluster1_master
   become_user: root
   become: yes
   gather_facts: no
@@ -289,46 +340,34 @@
       local_action:
         module: copy
         content: "{{ join_command.stdout }}"
-        dest: "/tmp/kubernetes_join_command_cluster4"
-      when: inventory_hostname in groups['cluster4_master']
-
-    - name: Copy join command to local file for cluster5_master
-      local_action:
-        module: copy
-        content: "{{ join_command.stdout }}"
-        dest: "/tmp/kubernetes_join_command_cluster5"
-      when: inventory_hostname in groups['cluster5_master']
+        dest: "/tmp/kubernetes_join_command_cluster1"
+      when: inventory_hostname in groups['cluster1_master']
 
 - name: Join worker nodes
-  hosts: workers
+  hosts: cluster1_worker
   become: yes
   become_user: root
   gather_facts: no
 
   tasks:
-    - name: Copy join command to workers of cluster4
+    - name: Copy join command to workers of cluster1
       copy:
-        src: "/tmp/kubernetes_join_command_cluster4"
+        src: "/tmp/kubernetes_join_command_cluster1"
         dest: "/tmp/kubernetes_join_command"
         mode: '0777'
-      when: inventory_hostname in groups['cluster4_worker']
-
-    - name: Copy join command to workers of cluster5
-      copy:
-        src: "/tmp/kubernetes_join_command_cluster5"
-        dest: "/tmp/kubernetes_join_command"
-        mode: '0777'
-      when: inventory_hostname in groups['cluster5_worker']
+      when: inventory_hostname in groups['cluster1_worker']
 
     - name: Execute the join command on worker nodes
       shell: sh /tmp/kubernetes_join_command
-      when: inventory_hostname in groups['cluster4_worker'] or inventory_hostname in groups['cluster5_worker']
+      when: inventory_hostname in groups['cluster1_worker']
 
 - name: enable criu for crio 
-  hosts: kubernetes
+  hosts: cluster1
   become_user: root
   become: yes
   gather_facts: no
+  tags:
+    - reinstall-criu
 
   tasks:
 
@@ -365,10 +404,12 @@
         msg: "{{ crio_logs.stdout }}"
 
 - name: enable container checkpoing gate
-  hosts: masters
+  hosts: cluster1_master
   become_user: root
   become: yes
   gather_facts: no 
+  tags:
+    - postinstall-criu
 
   tasks: 
 
@@ -391,10 +432,12 @@
         replace: '\1    - --feature-gates=ContainerCheckpoint=true\n'
 
 - name: enable container checkpoint for kubelet
-  hosts: kubernetes
+  hosts: cluster1
   become_user: root
   become: yes
   gather_facts: no
+  tags:
+    - postinstall-criu
 
   tasks:
 
@@ -407,14 +450,21 @@
         marker: "# {mark} ANSIBLE MANAGED BLOCK"
         insertafter: EOF
 
-- name: Reboot the host
-  hosts: kubernetes
+- name: Reboot the host and install buildah
+  hosts: cluster1
   become_user: root
   become: yes
   gather_facts: no 
+  tags:
+    - postinstall-criu
 
   tasks:
 
     - name: Reboot the system
       ansible.builtin.reboot:
         test_command: ip a
+    
+    - name: install buildah
+      ansible.builtin.apt:
+        name: buildah
+        state: present
