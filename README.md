@@ -13,7 +13,11 @@ To test and experiment possible approaches to perform low-latency service migrat
    - ubuntu 22.04 LTS:
      - problem: package conflicts and can only enable checkpoint, no restore, as restoring a checkpoint in kubernetes requires the use of buildah and build from scratch
    - ubuntu 20.04 LTS:
-     - no such package conflicts anymore
+     - no such package conflicts anymore, also upgraded to kernel 5.15 for CRIU support
+
+ - initial testing:
+   - with 5 clusers of 3 nodes (1 master + 2 workers)
+   - a data server to log
 
  - hypervisor and network:
    - proxmox + pfsense

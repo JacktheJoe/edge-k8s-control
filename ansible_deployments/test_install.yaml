@@ -3,7 +3,7 @@
 # installs cri-o, k8s components, calico
 
 - name: Reboot to sync time
-  hosts: cluster1
+  hosts: cluster3
   become_user: root
   become: yes
   gather_facts: no 
@@ -15,7 +15,7 @@
         test_command: ip a
 
 - name: node preparation
-  hosts: cluster1
+  hosts: cluster3
   become_user: root
   become: yes
   gather_facts: yes
@@ -68,7 +68,7 @@
         cmd: ufw --force enable
 
 - name: control_plane firewall
-  hosts: cluster1_master
+  hosts: cluster3_master
   become_user: root
   become: yes
   gather_facts: no
@@ -108,7 +108,7 @@
         msg: "{{ ufw_status.stdout_lines }}"
 
 - name: worker firewall
-  hosts: cluster1_worker
+  hosts: cluster3_worker
   become_user: root
   become: yes
   gather_facts: no 
@@ -145,7 +145,7 @@
         msg: "{{ ufw_status.stdout_lines }}"
 
 - name: install cri-o runtime
-  hosts: cluster1
+  hosts: cluster3
   become_user: root
   become: yes
   gather_facts: no
@@ -218,7 +218,7 @@
         state: started
     
 - name: install k8s modules
-  hosts: cluster1
+  hosts: cluster3
   become_user: root
   become: yes
   gather_facts: no
@@ -286,7 +286,7 @@
         - kubectl={{ kube_version }}
 
 - name: init cluster
-  hosts: cluster1_master
+  hosts: cluster3_master
   become_user: root
   become: yes
   gather_facts: no
@@ -340,29 +340,29 @@
       local_action:
         module: copy
         content: "{{ join_command.stdout }}"
-        dest: "/tmp/kubernetes_join_command_cluster1"
-      when: inventory_hostname in groups['cluster1_master']
+        dest: "/tmp/kubernetes_join_command_cluster3"
+      when: inventory_hostname in groups['cluster3_master']
 
 - name: Join worker nodes
-  hosts: cluster1_worker
+  hosts: cluster3_worker
   become: yes
   become_user: root
   gather_facts: no
 
   tasks:
-    - name: Copy join command to workers of cluster1
+    - name: Copy join command to workers of cluster3
       copy:
-        src: "/tmp/kubernetes_join_command_cluster1"
+        src: "/tmp/kubernetes_join_command_cluster3"
         dest: "/tmp/kubernetes_join_command"
         mode: '0777'
-      when: inventory_hostname in groups['cluster1_worker']
+      when: inventory_hostname in groups['cluster3_worker']
 
     - name: Execute the join command on worker nodes
       shell: sh /tmp/kubernetes_join_command
-      when: inventory_hostname in groups['cluster1_worker']
+      when: inventory_hostname in groups['cluster3_worker']
 
 - name: enable criu for crio 
-  hosts: cluster1
+  hosts: cluster3
   become_user: root
   become: yes
   gather_facts: no
@@ -404,7 +404,7 @@
         msg: "{{ crio_logs.stdout }}"
 
 - name: enable container checkpoing gate
-  hosts: cluster1_master
+  hosts: cluster3_master
   become_user: root
   become: yes
   gather_facts: no 
@@ -432,7 +432,7 @@
         replace: '\1    - --feature-gates=ContainerCheckpoint=true\n'
 
 - name: enable container checkpoint for kubelet
-  hosts: cluster1
+  hosts: cluster3
   become_user: root
   become: yes
   gather_facts: no
@@ -451,7 +451,7 @@
         insertafter: EOF
 
 - name: Reboot the host and install buildah
-  hosts: cluster1
+  hosts: cluster3
   become_user: root
   become: yes
   gather_facts: no 

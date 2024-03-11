@@ -1,0 +1,84 @@
+---
+- name: install docker
+  hosts: registry
+  become: yes
+  gather_facts: yes
+
+  tags:
+    - docker-install
+
+  tasks:
+    - name: Install required packages
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: yes
+
+    - name: Add Docker GPG apt Key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update and install docker-ce and docker-compose
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-compose
+        state: latest
+        update_cache: yes
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+- name: registry download
+  hosts: registry
+  become: yes
+  gather_facts: no
+
+  tags: 
+    - registry-download
+  
+  vars:
+    harbor_version: 2.9.3
+
+  tasks:
+    - name: Reload systemd manager configuration
+      ansible.builtin.systemd:
+        daemon_reload: yes
+
+    - name: Start docker service
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+
+    - name: Enable docker service to start at boot
+      ansible.builtin.systemd:
+        name: docker
+        enabled: yes
+    
+    - name: Download Harbor offline installer
+      ansible.builtin.get_url:
+        url: https://github.com/goharbor/harbor/releases/download/v{{ harbor_version }}/harbor-offline-installer-v{{ harbor_version }}.tgz
+        dest: "/tmp/harbor-offline-installer-v{{ harbor_version }}.tgz"
+        timeout: 60
+        validate_certs: yes
+
+    - name: Extract Harbor offline installer
+      ansible.builtin.unarchive:
+        src: "/tmp/harbor-offline-installer-v{{ harbor_version }}.tgz"
+        dest: "/tmp/harbor"
+        remote_src: yes
+        extra_opts: [--strip-components=1]

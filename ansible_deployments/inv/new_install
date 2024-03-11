@@ -1,6 +1,7 @@
 ubuntu:
   children:
     database:
+    registry:
     cluster1:
     cluster2:
     cluster3:
@@ -15,6 +16,10 @@ kubernetes:
 database:
   hosts:
     10.100.20.10:
+
+registry:
+  hosts:
+    10.100.20.11:
 
 cluster1:
   children:

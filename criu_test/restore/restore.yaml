@@ -1,0 +1,13 @@
+# pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restore-counter
+  labels:
+    app: counter
+spec:
+  containers:
+  - name: counter
+    image: localhost/restore-check1:latest
+    imagePullPolicy: Never
+  nodeName: worker-2-2
