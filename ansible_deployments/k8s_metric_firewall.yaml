@@ -1,0 +1,22 @@
+---
+
+# added into crio-deployment script
+
+- name: allow port 4443 on fw
+  hosts: cluster3
+  become_user: root
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: allow 4443
+      ansible.builtin.ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      loop:
+        - 4443
+    
+    - name: Reload
+      ansible.builtin.shell: |
+        sudo ufw reload

@@ -1,6 +1,6 @@
 # Monitoring server deployment
 - name: Monitoring server deployment
-  hosts: masters
+  hosts: cluster3_master
   become: yes
   gather_facts: no
 

@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mem-dummy-deployment
+  labels:
+    app: mem-dummy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mem-dummy
+  template:
+    metadata:
+      labels:
+        app: mem-dummy
+    spec:
+      containers:
+      - name: mem-dummy
+        image: xz446/mem-dummy:latest

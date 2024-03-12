@@ -1,8 +1,11 @@
 ---
 
 # Metrics server deployment
+
+# added into crio-deployment script
+
 - name: Metrics server deployment
-  hosts: masters
+  hosts: cluster3_master
   become: yes
   gather_facts: no
 
@@ -10,18 +13,18 @@
     - name: Copy metrics server deployment
       become: yes
       ansible.builtin.copy:
-        src: ./kube_metrics_deployment.yaml
-        dest: ./kube_metrics_deployment.yaml
+        src: ../k8s_deployments/metrics_deployment.yaml
+        dest: ./metrics_deployment.yaml
         mode: 0777
 
     - name: Run metrics server deployment
       become: yes
       ansible.builtin.shell:
-        cmd: kubectl apply -f kube_metrics_deployment.yaml
+        cmd: kubectl apply -f metrics_deployment.yaml
 
 # Test metric server by fetching master node utilization
 - name: test metric server deployment
-  hosts: masters
+  hosts: cluster3_master
   become: yes
   gather_facts: no
 
