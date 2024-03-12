@@ -2,7 +2,7 @@
 
 # installs cri-o, k8s components, calico
 
-- name: Update and upgrade all packages on cluster nodes
+- name: Cluster-node preparation
   hosts: cluster3
   become_user: root
   become: yes
@@ -26,16 +26,17 @@
           - linux-generic-hwe-20.04
         state: present
 
-- name: node preparation
-  hosts: cluster3
-  become_user: root
-  become: yes
-  gather_facts: no
-
-  tasks:
+    - name: update date into 24-hr
+      ansible.builtin.lineinfile:
+        path: /etc/default/locale
+        line: "{{ item }}"
+        create: no
+      loop:
+        - "LC_ALL="
+        - "LC_TIME=C.UTF-8"
   
     - name: temporarily disable swap filw
-      shell: |
+      ansible.builtin.shell: |
         swapoff -a
 
     - name: Remove swap entry from /etc/fstab
@@ -195,12 +196,12 @@
     #    state: present
 #
     - name: add cri-o repo
-      shell: | 
+      ansible.builtin.shell: | 
         echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ OS }}/ /"|sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
         echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ CRIO_VERSION_prefix }}:/{{ CRIO_VERSION }}/{{ OS }}/ /"|sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:{{ CRIO_VERSION }}.list
 
     - name: add GPG key for cri-o repo
-      shell: | 
+      ansible.builtin.shell: | 
         curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ CRIO_VERSION_prefix }}:{{ CRIO_VERSION }}/{{ OS }}/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
         curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ OS }}/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
 
@@ -282,7 +283,7 @@
       changed_when: False
 
     - name: init cluster
-      shell: | 
+      ansible.builtin.shell: | 
         kubeadm init --pod-network-cidr={{ pod_network }} --cri-socket unix:///var/run/crio/crio.sock
       register: init_output
 
@@ -291,14 +292,14 @@
         msg: "{{ init_output.stdout_lines }}"
 
     - name: export conf
-      shell: | 
+      ansible.builtin.shell: | 
         export KUBECONFIG=/etc/kubernetes/admin.conf
         mkdir -p $HOME/.kube
         cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
         chown $(id -u):$(id -g) $HOME/.kube/config  
 
     - name: deploy calico
-      shell: | 
+      ansible.builtin.shell: | 
         kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/calico.yaml
       register: calico_output
 
@@ -307,7 +308,7 @@
         msg: "{{ calico_output.stdout_lines }}"
 
     - name: Generate join command
-      shell: kubeadm token create --print-join-command
+      ansible.builtin.shell: kubeadm token create --print-join-command
       register: join_command
 
     - name: Copy join command to local file for cluster4_master
@@ -346,7 +347,7 @@
       when: inventory_hostname in groups['cluster5_worker']
 
     - name: Execute the join command on worker nodes
-      shell: sh /tmp/kubernetes_join_command
+      ansible.builtin.shell: sh /tmp/kubernetes_join_command
       when: inventory_hostname in groups['cluster4_worker'] or inventory_hostname in groups['cluster5_worker']
 
 - name: enable criu for crio 
@@ -471,7 +472,7 @@
   tasks:
     - name: test metric server
       become: yes
-      shell: |
+      ansible.builtin.shell: |
         kubectl top nodes | grep master
       register: kubectl
 
