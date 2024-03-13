@@ -25,6 +25,7 @@ To test and experiment possible approaches to perform low-latency service migrat
      - pfsense used for isolating traffic and perform rules to restrict or redirect, also enabling VPN connection to all nodes
        - each cluster inside its own subnet of 10.100.2x.1/24
        - data server location of 10.100.20.10 for logging
+     - pfsense also used for traffic shaping, with bandwidth limitor and latency simulation
 
  - storage:
    - truenas core
