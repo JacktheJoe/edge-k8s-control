@@ -56,7 +56,7 @@
     - wait_for:
         timeout: "{{ sleep_in_between|default(10) }}"
 
-    - name: update date into 24-hr
+    - name: update date into 24-hr (as 12 hr is default to 20.04)
       ansible.builtin.lineinfile:
         path: /etc/default/locale
         line: "{{ item }}"
@@ -106,10 +106,6 @@
       ansible.builtin.command:
         cmd: sysctl --system
 
-    - name: Enable UFW
-      ansible.builtin.command:
-        cmd: ufw --force enable
-    
     - name: Allow ssh
       ansible.builtin.shell: | 
         ufw allow 22
@@ -117,6 +113,10 @@
     - name: Allow metric-server
       ansible.builtin.shell: | 
         ufw allow 4443
+
+    - name: Enable UFW
+      ansible.builtin.command:
+        cmd: ufw --force enable
 
     - name: Reboot the system
       ansible.builtin.reboot:
@@ -185,7 +185,6 @@
       loop:
         - 10250   # Kubelet API
         - 30000:32767  # NodePort Services range
-        - 22 # SSH, for remote testing
 
     - name: Open ports for Calico CNI
       ansible.builtin.ufw:
@@ -603,6 +602,11 @@
     - name: Reboot the system
       ansible.builtin.reboot:
         test_command: ip a
+    
+    - name: install buildah
+      ansible.builtin.apt:
+        name: buildah
+        state: present
 
 - name: Metrics server deployment
   hosts: masters

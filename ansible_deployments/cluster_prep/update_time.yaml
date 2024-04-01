@@ -1,0 +1,12 @@
+--- 
+
+- name: Ubtunto node time update
+  hosts: kubernetes
+  become_user: root
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Update time on nodes
+      ansible.builtin.shell: | 
+        date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"

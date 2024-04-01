@@ -1,0 +1,13 @@
+---
+
+- name: Reboot hosts
+  hosts: kubernetes
+  become_user: root
+  become: yes
+  gather_facts: yes
+
+  tasks:
+
+    - name: Reboot the system
+      ansible.builtin.reboot:
+        test_command: ip a

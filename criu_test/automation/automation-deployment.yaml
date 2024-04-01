@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: master-monitor-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: master-monitor
+  template:
+    metadata:
+      labels:
+        app: master-monitor
+    spec:
+      tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+        effect: "NoSchedule"
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      containers:
+      - name: master-monitor
+        image: master-monitor-image
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: worker-monitor-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: worker-monitor
+  template:
+    metadata:
+      labels:
+        app: worker-monitor
+    spec:
+      # should not be deployed on master
+      tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - name: worker-monitor
+        image: worker-monitor-image

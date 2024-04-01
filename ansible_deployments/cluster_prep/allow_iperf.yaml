@@ -1,0 +1,12 @@
+---
+
+- name: allow iperf 
+  hosts: kubernetes
+  become_user: root
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: allow iperf
+      ansible.builtin.shell: |
+        ufw allow 5201crictl rmi --prune

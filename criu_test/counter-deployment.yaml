@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: counter-deployment
+  name: counter
   labels:
     app: counter
 spec:

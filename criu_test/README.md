@@ -7,6 +7,7 @@ learned the hard way:
 
 test results for checkpointing and restoring the counter pod, with scp and local rebuilds (no public/private reg)
 result for checkpoint on cluster-2 (org w-2)
+
 1. restore on cluster-2
    1. w-2
       1. passed

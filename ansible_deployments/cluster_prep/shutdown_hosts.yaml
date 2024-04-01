@@ -1,0 +1,13 @@
+---
+
+- name: Shutdown hosts
+  hosts: cluster2:cluster3
+  become_user: root
+  become: yes
+  gather_facts: yes
+
+  tasks:
+
+    - name: Poweroff the system
+      community.general.shutdown:
+        delay: 1

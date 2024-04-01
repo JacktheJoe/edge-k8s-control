@@ -1,0 +1,23 @@
+# Monitoring server deployment
+- name: Monitoring server deployment
+  hosts: masters
+  become_user: root
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Copy Monitoring server deployment
+      ansible.builtin.copy:
+        force: yes
+        src: ../criu_test/mem-dummy-deployment.yaml
+        dest: /home/jack/mem-dummy-deployment.yaml
+        mode: 0644
+    
+    - name: apply deployment
+      ansible.builtin.shell:
+        cmd: kubectl apply -f mem-dummy-deployment.yaml
+      register: deployment_result  # Register the output of the shell command
+
+    - name: Show output of the deployment command
+      debug:
+        msg: "{{ deployment_result.stdout }}"  # Display the stdout from the shell command

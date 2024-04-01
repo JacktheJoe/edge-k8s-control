@@ -61,3 +61,12 @@ image layer location in k8s:
     3. seems kubernetes pulled layers stored under -> /var/run/containers/storage/overlay-containers or similar dirs
 
     trying to see how to only apply/swap cached/changed layers to target, or for common applications, based on &*&$ algorithm migrate them to dest of dir
+
+
+DOCKER_RATE_LIMIT (100-200/6hrs)
+
+to check (no log-in):
+1. TOKEN=$(curl "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token)
+2. curl --head -H "Authorization: Bearer $TOKEN" https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
+
+if no remaining then limit reach and image pull will never work
